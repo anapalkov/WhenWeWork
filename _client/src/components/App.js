@@ -90,15 +90,17 @@ function App() {
             <AvailableShifts user={user} myCompany={myCompany} setMyCompany={setMyCompany} setErrors={setErrors} />
           </Route>
           {/* <Route path="/test">
-            <BigCalendar user={user} myCompany={myCompany} setMyCompany={setMyCompany} setErrors={setErrors} />
+            <BigCalendar2 user={user} myCompany={myCompany} setMyCompany={setMyCompany} setErrors={setErrors} />
           </Route> */}
+
           <Route path="/bigcalendar">
-            <ChakraProvider>
-              <div style={{ height: "95vh" }}>
+            <div style={{ height: "95vh" }}>
+              <ChakraProvider>
                 <DragAndDrop user={user} myCompany={myCompany} setMyCompany={setMyCompany} setErrors={setErrors} />
-              </div>
-            </ChakraProvider>
+              </ChakraProvider>
+            </div>
           </Route>
+
           <Route path="*">
             <MyShifts user={user} myCompany={myCompany} setMyCompany={setMyCompany} setErrors={setErrors} />
           </Route>

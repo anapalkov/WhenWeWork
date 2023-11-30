@@ -1,12 +1,15 @@
 import { useState, useCallback } from "react";
-import { EVENTS } from "./constants";
+
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 // import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
-import { Calendar as BigCalendar, stringOrDate } from "react-big-calendar";
+import { Calendar, stringOrDate } from "react-big-calendar";
+import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
+import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Box, Flex } from "@chakra-ui/react";
 import AppointmentEvent from "./AppointmentEvent";
 import OutsideEvent from "./OutsideEvent";
 // import props from "./props"
+// import { EVENTS } from "./constants";
 
 import { momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
@@ -24,8 +27,6 @@ const localizer = momentLocalizer(moment);
 //   },
 // };
 
-
-
 // {
 //   start: moment("2023-09-07T09:00:00").toDate(),
 //   end: moment("2023-09-07T10:00:00").toDate(),
@@ -42,10 +43,7 @@ const localizer = momentLocalizer(moment);
 //   resourceId: 1,
 // }
 
-
-
-
-const DnDCalendar = withDragAndDrop(BigCalendar);
+const DnDCalendar = withDragAndDrop(Calendar);
 
 function DragAndDrop({ user, setUser, myCompany, setMyCompany }) {
 
@@ -55,7 +53,6 @@ function DragAndDrop({ user, setUser, myCompany, setMyCompany }) {
       if (shift) {
         // Find the user to whom the shift belongs
         const user = myCompany.users.find((user) => user.id === shift.user_id);
-
         if (user) {
           return (
             <div>
@@ -87,11 +84,14 @@ function DragAndDrop({ user, setUser, myCompany, setMyCompany }) {
     min: moment("2022-10-10T08:00:00").toDate(),
   };
 
-
-
-
-
   const [events, setEvents] = useState(myCompany.shifts);
+  // this.events = (result.data || []).map(item => {
+  //   item['start']  = item['start'] && moment(item['start_at']).toDate()
+  //   item['end'] = item['end'] && moment(item['finish_at']).toDate()
+  //   return item
+  // })
+  //Big Calendar requires true JS Date objects. Your string (UTC) may initially display in a Month view, but will bomb everywhere else.
+
 
   const onChangeEventTime = useCallback(
     ({
@@ -136,8 +136,6 @@ function DragAndDrop({ user, setUser, myCompany, setMyCompany }) {
   //   [draggedEvent]
   // );
 
-
-
   // const dummyAppointment = {
   //   id: 3,
   //   status: "CI",
@@ -145,8 +143,6 @@ function DragAndDrop({ user, setUser, myCompany, setMyCompany }) {
   //   resource: "Alex Hales",
   //   address: "1241 E Main St\n Stamford\n CT 06902\n United States",
   // };
-
-
 
   // const resources = [
   //   { id: 1, title: "Dr Graff" },
@@ -176,16 +172,18 @@ function DragAndDrop({ user, setUser, myCompany, setMyCompany }) {
       </Box> */}
 
       <Box flex="1" overflow="auto" width="100%" mt={100}>
+
         <DnDCalendar
 
           {...props}
           events={events}
-          // resources={resources}
-          // draggableAccessor={(event) => !!event.isDraggable}
-          draggableAccessor={(event) => true}
-          resizableAccessor={"isResizable"}
-          onEventDrop={onChangeEventTime}
-          onEventResize={onChangeEventTime}
+        // draggableAccessor={(event) => true}
+        // resizableAccessor={"isResizable"}
+        // onEventDrop={onChangeEventTime}
+        // onEventResize={onChangeEventTime}
+
+        // resources={resources}
+        // draggableAccessor={(event) => !!event.isDraggable}
         // onDropFromOutside={onDroppedFromOutside}
         />
       </Box>
